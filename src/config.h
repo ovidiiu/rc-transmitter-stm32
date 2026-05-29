@@ -6,6 +6,11 @@
 //  Only Port A, B, C available
 // ============================================
 
+// --- Power Latch ---
+#define PIN_POWER_HOLD      PB15
+#define PIN_POWER_SENSE     PA15
+#define POWER_OFF_HOLD_MS   2000    // 2 second long press to turn off
+
 // --- Display (SH1107 128x128 I2C) ---
 #define PIN_I2C_SDA         PB7
 #define PIN_I2C_SCL         PB6

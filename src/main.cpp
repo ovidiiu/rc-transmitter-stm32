@@ -6,6 +6,7 @@
 #include "crsf/crsf.h"
 #include "ui/display.h"
 #include "audio/buzzer.h"
+#include "power/power.h"
 
 // ---- Global Objects ----
 ADCInput   adc;
@@ -22,6 +23,9 @@ uint32_t lastLoop    = 0;
 uint32_t lastCRSF    = 0;
 uint32_t lastDisplay = 0;
 uint32_t lastTelem   = 0;
+
+
+Power      power;
 
 // ---- UI ----
 enum Page : uint8_t {
@@ -47,6 +51,9 @@ void handleNavigation();
 
 // ========================================
 void setup() {
+        // FIRST: latch power on
+    power.begin();
+
     pinMode(PIN_MODULE_EN, OUTPUT);
     digitalWrite(PIN_MODULE_EN, LOW);
 
@@ -142,8 +149,33 @@ void loop() {
         lowBattWarned = true;
     }
     if (vbat >= VBAT_LOW + 0.2f) lowBattWarned = false;
+    
+    // Power button check
+    power.update();
+
+    if (power.isShuttingDown()) {
+        // Save any settings here (future: SD card)
+
+        // Show shutdown screen
+        display.clear();
+        display.drawTextLarge(20, 60, "Power Off...");
+        display.flush();
+
+        buzzer.beep(1000, 200);
+        delay(300);
+        buzzer.beep(500, 300);
+        delay(500);
+
+        // Kill power
+        digitalWrite(PIN_MODULE_EN, LOW);   // turn off ELRS module
+        digitalWrite(PIN_POWER_HOLD, LOW);  // release power latch
+
+        // If still alive (USB powered), just halt
+        while (1) { delay(1000); }
+    }
 
     buzzer.update();
+
 
     // Pace main loop to 1ms
     while (micros() - lastLoop < LOOP_INTERVAL_US) { /* spin */ }
