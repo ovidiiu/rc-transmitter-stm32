@@ -23,7 +23,7 @@ public:
     void drawChannelBars(int16_t channels[], uint8_t count);
     void drawStickBox(uint8_t x, uint8_t y, int16_t hVal, int16_t vVal);
 
-    U8G2_SH1107_128X128_F_HW_I2C u8g2;
+    U8G2_SH1107_128X128_F_HW_I2C u8g2 = U8G2_SH1107_128X128_F_HW_I2C(U8G2_R0);
 
 private:
     void setDisplayOffset(uint8_t offset);

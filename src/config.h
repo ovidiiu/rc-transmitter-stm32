@@ -2,7 +2,8 @@
 #include <Arduino.h>
 
 // ============================================
-//  PIN DEFINITIONS — STM32F412RET6 Custom RC TX
+//  PIN DEFINITIONS — STM32F412RET6 (LQFP-64)
+//  Only Port A, B, C available
 // ============================================
 
 // --- Display (SH1107 128x128 I2C) ---
@@ -18,6 +19,9 @@
 #define CRSF_BAUDRATE       420000
 #define CRSF_MAX_FRAME      64
 #define CRSF_NUM_CHANNELS   16
+#define CRSF_CHANNEL_MIN    172
+#define CRSF_CHANNEL_MID    992
+#define CRSF_CHANNEL_MAX    1811
 
 // --- Gimbals & Pots (ADC1) ---
 #define PIN_STICK_AIL       PA0
@@ -48,30 +52,30 @@
 #define PIN_ENC_B           PB8
 #define PIN_ENC_BTN         PB9
 
-// --- Trims ---
-#define PIN_TRIM1_PLUS      PD0
-#define PIN_TRIM1_MINUS     PD1
-#define PIN_TRIM2_PLUS      PD3
-#define PIN_TRIM2_MINUS     PD4
-#define PIN_TRIM3_PLUS      PD5
-#define PIN_TRIM3_MINUS     PD6
-#define PIN_TRIM4_PLUS      PD7
-#define PIN_TRIM4_MINUS     PE0
+// --- Trims (remapped to Port A/B/C — no PD/PE on LQFP-64) ---
+#define PIN_TRIM1_PLUS      PA4
+#define PIN_TRIM1_MINUS     PA5
+#define PIN_TRIM2_PLUS      PA6
+#define PIN_TRIM2_MINUS     PA7
+#define PIN_TRIM3_PLUS      PB0
+#define PIN_TRIM3_MINUS     PB1
+#define PIN_TRIM4_PLUS      PB2
+#define PIN_TRIM4_MINUS     PB10
 
 #define NUM_TRIMS           4
 #define TRIM_MAX            100
 #define TRIM_MIN            -100
 #define TRIM_STEP           2
 
-// --- Switches ---
-#define PIN_SW_A            PE1
-#define PIN_SW_B_UP         PE2
-#define PIN_SW_B_DN         PE3
-#define PIN_SW_C_UP         PE4
-#define PIN_SW_C_DN         PE5
-#define PIN_SW_D            PE6
-#define PIN_SW_F            PE7
-#define PIN_SW_H            PE8
+// --- Switches (remapped to Port B/C) ---
+#define PIN_SW_A            PB15
+#define PIN_SW_B_UP         PC6
+#define PIN_SW_B_DN         PC7
+#define PIN_SW_C_UP         PC8
+#define PIN_SW_C_DN         PC9
+#define PIN_SW_D            PC10
+#define PIN_SW_F            PC11
+#define PIN_SW_H            PC12
 
 // --- Buzzer ---
 #define PIN_BUZZER          PA8
@@ -82,7 +86,7 @@
 #define PIN_USB_VBUS        PA9
 
 // --- SD Card (SDIO) ---
-#define PIN_SD_DETECT       PC7
+#define PIN_SD_DETECT       PC13
 
 // --- Trainer (USART3) ---
 #define PIN_TRAINER_TX      PB10

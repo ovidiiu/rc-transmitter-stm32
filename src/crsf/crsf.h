@@ -6,9 +6,6 @@
 #define CRSF_FRAMETYPE_RC       0x16
 #define CRSF_FRAMETYPE_LINK     0x14
 #define CRSF_FRAMETYPE_BATTERY  0x08
-#define CRSF_CHANNEL_MIN        172
-#define CRSF_CHANNEL_MID        992
-#define CRSF_CHANNEL_MAX        1811
 
 struct CrsfTelemetry {
     uint8_t  rssi_up;
